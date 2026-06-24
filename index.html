@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        CONTROL DE FALTAS, DESCANSOS MÉDICOS Y CITAS MÉDICAS
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="styles.css">
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/chart.js">
+    </script>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2">
+    </script>
+
+</head>
+
+<body>
+
+    <main class="container">
+
+        <header class="header-principal">
+
+            <div>
+
+                <h1>
+                    CONTROL DE PERSONAL 
+                </h1>
+
+                <p>
+                    Control diario de faltas, descansos médicos y citas médicas.
+                </p>
+
+            </div>
+
+            <div class="filtro-fecha">
+
+                <div class="campo-filtro">
+
+                    <label for="fechaFiltro">
+                        Fecha
+                    </label>
+
+                    <input
+                        id="fechaFiltro"
+                        type="date">
+
+                </div>
+
+                <div class="campo-filtro">
+
+                    <label for="turnoFiltro">
+                        Turno
+                    </label>
+
+                    <select id="turnoFiltro">
+
+                        <option value="TODOS">
+                            Todos
+                        </option>
+
+                        <option value="T1">
+                            T1
+                        </option>
+
+                        <option value="T2">
+                            T2
+                        </option>
+
+                        <option value="T3">
+                            T3
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <button id="btnActualizar">
+                    Actualizar
+                </button>
+
+            </div>
+
+        </header>
+
+        <section class="resumen">
+
+            <article class="tarjeta-resumen falta">
+
+                <span>
+                    Faltas
+                </span>
+
+                <strong id="totalFaltas">
+                    0
+                </strong>
+
+            </article>
+
+            <article class="tarjeta-resumen descanso">
+
+                <span>
+                    Descansos médicos
+                </span>
+
+                <strong id="totalDescansos">
+                    0
+                </strong>
+
+            </article>
+
+            <article class="tarjeta-resumen cita">
+
+                <span>
+                    Citas médicas
+                </span>
+
+                <strong id="totalCitas">
+                    0
+                </strong>
+
+            </article>
+
+        </section>
+
+        <section class="card grafico-card">
+
+            <div class="titulo-seccion">
+
+                <div>
+
+                    <h2>
+                        Incidencias por turno
+                    </h2>
+
+                    <p id="textoFecha">
+                        Seleccione una fecha.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="contenedor-grafico">
+
+                <canvas id="graficoTurnos"></canvas>
+
+            </div>
+
+        </section>
+
+        <section class="seccion-personal">
+
+            <article class="card lista-card lista-faltas">
+
+                <div class="titulo-lista">
+
+                    <h2>
+                        Faltas
+                    </h2>
+
+                    <span id="contadorFaltas">
+                        0
+                    </span>
+
+                </div>
+
+                <div
+                    id="listaFaltas"
+                    class="lista-personal">
+
+                    <p class="sin-datos">
+                        No hay faltas registradas.
+                    </p>
+
+                </div>
+
+            </article>
+
+            <article class="card lista-card lista-descansos">
+
+                <div class="titulo-lista">
+
+                    <h2>
+                        Descansos médicos
+                    </h2>
+
+                    <span id="contadorDescansos">
+                        0
+                    </span>
+
+                </div>
+
+                <div
+                    id="listaDescansos"
+                    class="lista-personal">
+
+                    <p class="sin-datos">
+                        No hay descansos médicos registrados.
+                    </p>
+
+                </div>
+
+            </article>
+
+            <article class="card lista-card lista-citas">
+
+                <div class="titulo-lista">
+
+                    <h2>
+                        Citas médicas
+                    </h2>
+
+                    <span id="contadorCitas">
+                        0
+                    </span>
+
+                </div>
+
+                <div
+                    id="listaCitas"
+                    class="lista-personal">
+
+                    <p class="sin-datos">
+                        No hay citas médicas registradas.
+                    </p>
+
+                </div>
+
+            </article>
+
+        </section>
+
+        <div
+            id="mensaje"
+            class="mensaje">
+        </div>
+
+    </main>
+
+    <script
+        type="module"
+        src="app.js">
+    </script>
+
+</body>
+
+</html>
