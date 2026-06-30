@@ -34,6 +34,8 @@ const fechaFiltro = document.getElementById("fechaFiltro");
 
 const turnoFiltro = document.getElementById("turnoFiltro");
 
+const sectorFiltro = document.getElementById("sectorFiltro");
+
 const btnActualizar = document.getElementById("btnActualizar");
 
 const totalFaltas = document.getElementById("totalFaltas");
@@ -108,6 +110,11 @@ turnoFiltro.addEventListener(
     cargarDashboard
 );
 
+sectorFiltro.addEventListener(
+    "change",
+    cargarDashboard
+);
+
 
 /* =========================================================
    CARGAR DASHBOARD
@@ -118,6 +125,8 @@ async function cargarDashboard() {
     const fecha = fechaFiltro.value;
 
     const turnoSeleccionado = turnoFiltro.value;
+
+    const sectorSeleccionado = sectorFiltro.value;
 
 
     if (!fecha) {
@@ -175,14 +184,19 @@ async function cargarDashboard() {
         });
 
 
-        const registrosFiltrados =
-            turnoSeleccionado === "TODOS"
-                ? registros
-                : registros.filter((registro) => {
+        const registrosFiltrados = registros.filter((registro) => {
 
-                    return registro.turno === turnoSeleccionado;
+            const cumpleTurno =
+                turnoSeleccionado === "TODOS" ||
+                registro.turno === turnoSeleccionado;
 
-                });
+            const cumpleSector =
+                sectorSeleccionado === "TODOS" ||
+                registro.sector === sectorSeleccionado;
+
+            return cumpleTurno && cumpleSector;
+
+        });
 
 
         actualizarResumen(registrosFiltrados);
@@ -198,8 +212,14 @@ async function cargarDashboard() {
                 : `Turno ${turnoSeleccionado}`;
 
 
+        const textoSector =
+            sectorSeleccionado === "TODOS"
+                ? "Todos los sectores"
+                : formatearSector(sectorSeleccionado);
+
+
         textoFecha.textContent =
-            `${formatearFecha(fecha)} - ${textoTurno}`;
+            `${formatearFecha(fecha)} - ${textoTurno} - ${textoSector}`;
 
 
         if (registrosFiltrados.length === 0) {
@@ -209,7 +229,7 @@ async function cargarDashboard() {
                 "info"
             );
 
-        } 
+        }
 
     } catch (error) {
 
@@ -525,6 +545,8 @@ function pintarLista(contenedor, registros, mensajeVacio) {
 
                 registro.turno || "",
 
+                registro.sector || "",
+
                 registro.area || "",
 
                 registro.funcion || ""
@@ -621,5 +643,18 @@ function formatearFecha(fechaTexto) {
             year: "numeric"
         }
     ).format(fecha);
+
+}
+
+
+function formatearSector(sector) {
+
+    if (sector === "OTROS") {
+        return "Otros";
+    }
+
+    return String(sector || "")
+        .toLowerCase()
+        .replace(/\b\w/g, (letra) => letra.toUpperCase());
 
 }
